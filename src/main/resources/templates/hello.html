@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+<title>OpenID Connect Example</title>
+</head>
+<body>
+	<div class="container mt-5">
+
+		<div class="card">
+			<h2 class="card-header">Hello
+				[[${#httpServletRequest.remoteUser}]]!</h2>
+			<ul class="list-group">
+				<!-- The subject and issuer taken together will uniquely identify your user, this lets you see them separately -->
+				<li class="list-group-item">Subject: <span
+					sec:authentication="sub">null</span></li>
+				<li class="list-group-item">Issuer: <span
+					sec:authentication="issuer">null</span></li>
+
+				<li class="list-group-item">Firstname: <span
+					sec:authentication="userInfo.givenName">null</span></li>
+				<li class="list-group-item">Lastname: <span
+					sec:authentication="userInfo.familyName">null</span></li>
+
+				<!-- The user's email address, if provided; this is not to be used as a unique identifier as it's not guaranteed -->
+				<li class="list-group-item">Email: <span
+					sec:authentication="userInfo.email">null</span></li>
+				<li class="list-group-item">Email verified: <span
+					sec:authentication="userInfo.emailVerified">null</span></li>
+
+				<!-- The user's preferred username; if your app has a space for a user-friendly "username", try to use this, do not use it to uniquely identify the user -->
+				<li class="list-group-item">Preferred username: <span
+					sec:authentication="userInfo.preferredUsername">null</span></li>
+
+				<!-- Timestamp of when the user's account was updated -->
+				<li class="list-group-item">Last updated: <span
+					sec:authentication="userInfo.updatedTime">null</span></li>
+
+				<!-- The list of security roles the user has -->
+				<li class="list-group-item">Roles: <span
+					sec:authentication="authorities">null</span></li>
+			</ul>
+		</div>
+
+		<form class="mt-3" th:action="@{/logout}" method="post">
+			<input class="btn btn-danger" type="submit"
+				value="Sign Out" />
+		</form>
+	</div>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+</body>
+</html>
