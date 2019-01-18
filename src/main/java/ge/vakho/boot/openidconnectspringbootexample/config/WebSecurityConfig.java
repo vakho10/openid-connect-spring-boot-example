@@ -20,10 +20,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+
+import ge.vakho.boot.openidconnectspringbootexample.handler.SessionEndLogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -55,6 +58,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Value("${oidc.endsessionendpoint}")
 	private String endSessionEndpoint;
+	
+	@Autowired
+	private SessionEndLogoutSuccessHandler logoutSuccessHandler;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -75,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				// This sets up the logout system
 				.logout() //
-				.logoutSuccessUrl("/") //
+				.logoutSuccessHandler(logoutSuccessHandler) //
 				.permitAll();
 	}
 
