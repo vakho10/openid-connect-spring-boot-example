@@ -1,2 +1,2 @@
-# openid-connect-spring-boot-example
-OpenID Connect example in Spring Boot application
+# OpenID Connect Spring Boot Example
+OpenID Connect example in Spring Boot application. 
