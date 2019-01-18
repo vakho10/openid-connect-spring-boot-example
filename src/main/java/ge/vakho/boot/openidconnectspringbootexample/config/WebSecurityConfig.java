@@ -29,31 +29,31 @@ import com.google.common.collect.ImmutableSet;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Value("${oidc.issuer:https://localhost:9445/oauth2/token}")
+	@Value("${oidc.issuer}")
 	private String issuerUrl;
 
-	@Value("${oidc.clientid:8PhacfScchi6gAQRMWXwwBebylwa}")
+	@Value("${oidc.clientid}")
 	private String clientId;
 
-	@Value("${oidc.clientsecret:kF78Q4i_LCBMXowwCAktVyZxryoa}")
+	@Value("${oidc.clientsecret}")
 	private String clientSecret;
 
-	@Value("${oidc.redirecturi:http://vakho.com:8080/openid_connect_login}")
+	@Value("${oidc.redirecturi}")
 	private String redirectUri;
 
-	@Value("${oidc.authorizationendpointuri:https://localhost:9445/oauth2/authorize}")
+	@Value("${oidc.authorizationendpointuri}")
 	private String authorizationEndpointUri;
 
-	@Value("${oidc.tokenendpointuri:https://localhost:9445/oauth2/token}")
+	@Value("${oidc.tokenendpointuri}")
 	private String tokenEndpointUri;
 
-	@Value("${oidc.userinfouri:https://localhost:9445/oauth2/userinfo}")
+	@Value("${oidc.userinfouri}")
 	private String userInfoUri;
 
-	@Value("${oidc.jwksuri:https://localhost:9445/oauth2/jwks}")
+	@Value("${oidc.jwksuri}")
 	private String jwksUri;
 
-	@Value("${oidc.endsessionendpoint:https://localhost:9445/oidc/logout}")
+	@Value("${oidc.endsessionendpoint}")
 	private String endSessionEndpoint;
 
 	@Override
