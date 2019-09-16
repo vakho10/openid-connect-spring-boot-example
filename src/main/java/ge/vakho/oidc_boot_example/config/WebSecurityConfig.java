@@ -20,11 +20,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
-import ge.vakho.oidc_boot_example.handler.SessionEndLogoutSuccessHandler;
+import ge.vakho.oidc_boot_example.handler.OIDCLogoutHandler;
 import ge.vakho.oidc_boot_example.property.OIDCProperties;
 
 @Configuration
@@ -34,30 +35,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private OIDCProperties oidcProperties;
 	
-	@Autowired
-	private SessionEndLogoutSuccessHandler logoutSuccessHandler;
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http //
 				.authorizeRequests() //
-				.antMatchers("/", "/home") //
-				.permitAll() //
-				.anyRequest() //
-				.authenticated() //
-				.and()
+					.antMatchers("/", "/home") //
+						.permitAll() //
+					.anyRequest() //
+						.authenticated() //
+					.and()
 				// This adds the authentication filter itself, see
 				// the configureOIDCFilter method for more details
 				.addFilterBefore(configureOIDCfilter(), AbstractPreAuthenticatedProcessingFilter.class)
 				// This sets up the application to automatically request an OIDC login when
 				// needed
 				.exceptionHandling()
-				.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/openid_connect_login")) //
-				.and()
+					.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/openid_connect_login")) //
+					.and()
 				// This sets up the logout system
 				.logout() //
-				.logoutSuccessHandler(logoutSuccessHandler) //
-				.permitAll();
+					.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET")) //
+					.addLogoutHandler(new OIDCLogoutHandler())
+					.logoutSuccessUrl("/")
+					.permitAll();
 	}
 
 	/**
