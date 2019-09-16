@@ -8,7 +8,7 @@
 		<version>2.1.2.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>ge.vakho.boot</groupId>
+	<groupId>ge.vakho.oidc_boot_example</groupId>
 	<artifactId>openid-connect-spring-boot-example</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>openid-connect-spring-boot-example</name>
@@ -59,7 +59,12 @@
 			<artifactId>openid-connect-client</artifactId>
 			<version>${mitreid-connect-version}</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<build>

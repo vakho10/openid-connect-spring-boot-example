@@ -1,4 +1,4 @@
-package ge.vakho.boot.openidconnectspringbootexample.config;
+package ge.vakho.oidc_boot_example.config;
 
 import org.mitre.openid.connect.web.UserInfoInterceptor;
 import org.springframework.context.annotation.Bean;
